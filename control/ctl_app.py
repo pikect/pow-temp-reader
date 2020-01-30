@@ -1,4 +1,5 @@
 import sys
+import json
 import time
 import paramiko
 import threading
@@ -23,9 +24,13 @@ class MainWindow(QWidget):
         self.ssh_client = paramiko.SSHClient()
         self.ssh_client.load_system_host_keys()
         self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-
+        
+        with open("client.json") as jfile:    
+            self.file = json.load(jfile)
+            self.ip = self.file["ip"]
+            
         try:
-            self.ssh_client.connect('192.168.2.50', username='root', password='netico987', timeout=10)
+            self.ssh_client.connect(self.ip, username='root', password='netico987', timeout=10)
             self.sftp_client = self.ssh_client.open_sftp()
             self.runThread.start()
 
