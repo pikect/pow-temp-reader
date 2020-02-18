@@ -43,7 +43,7 @@ class MainWindow(QWidget):
     def run(self):
         while True:
                 try:
-                    remote_file = self.sftp_client.open('/tmp/urtu/pow/temperature')
+                    remote_file = self.sftp_client.open('/tmp/urtu/temperature')
                     try:
                         temperature = remote_file.read()
                         temperature = temperature.decode()
